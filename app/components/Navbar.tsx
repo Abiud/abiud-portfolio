@@ -13,11 +13,7 @@ const navLinks = [
 ];
 
 const externalLinks = [
-  { label: "Resume", href: "/resume.pdf" },
-  {
-    label: "Scholar",
-    href: "https://scholar.google.com/citations?user=k9BZNocAAAAJ&hl=en",
-  },
+  { label: "Resume", href: "/resume.pdf", newTab: true },
 ];
 
 export default function Navbar() {
@@ -102,8 +98,8 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                target={link.href.startsWith("http") ? "_blank" : undefined}
-                rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                target={link.newTab ? "_blank" : undefined}
+                rel={link.newTab ? "noopener noreferrer" : undefined}
                 className="px-4 py-2 border border-text-secondary text-text-secondary font-mono text-base tracking-wider uppercase hover:border-accent-olive hover:text-accent-olive transition-colors duration-200"
               >
                 {link.label}
@@ -199,15 +195,12 @@ export default function Navbar() {
                     <a
                       key={link.href}
                       href={link.href}
-                      target={link.href.startsWith("http") ? "_blank" : undefined}
-                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      target={link.newTab ? "_blank" : undefined}
+                      rel={link.newTab ? "noopener noreferrer" : undefined}
                       className="block px-4 py-3 border border-text-secondary text-text-secondary font-mono text-xs tracking-wider uppercase hover:border-accent-gold-dark hover:text-accent-gold-dark transition-colors text-center"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}
-                      {link.href.startsWith("http") && (
-                        <span className="ml-2">&#8599;</span>
-                      )}
                     </a>
                   ))}
                 </div>

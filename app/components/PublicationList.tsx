@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, type Variants } from "motion/react";
+import { useState } from "react";
+import { motion, AnimatePresence, type Variants } from "motion/react";
 import type { Publication } from "@/lib/semantic-scholar";
 
 const staggerContainer: Variants = {
@@ -28,6 +29,20 @@ interface PublicationListProps {
 }
 
 export function PublicationList({ publications }: PublicationListProps) {
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 4;
+  const totalPages = Math.ceil(publications.length / pageSize);
+  const visiblePublications = publications.slice(
+    currentPage * pageSize,
+    (currentPage + 1) * pageSize
+  );
+
+  const handleNext = () => setCurrentPage((p) => Math.min(p + 1, totalPages - 1));
+  const handlePrev = () => setCurrentPage((p) => Math.max(p - 1, 0));
+
+  const startNum = currentPage * pageSize + 1;
+  const endNum = Math.min((currentPage + 1) * pageSize, publications.length);
+
   if (publications.length === 0) {
     return (
       <p className="text-text-secondary text-center font-mono text-sm">
@@ -37,14 +52,17 @@ export function PublicationList({ publications }: PublicationListProps) {
   }
 
   return (
-    <motion.div
-      className="space-y-6"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      variants={staggerContainer}
-    >
-      {publications.map((pub) => (
+    <div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentPage}
+          className="space-y-6"
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          variants={staggerContainer}
+        >
+          {visiblePublications.map((pub) => (
         <motion.article
           key={pub.paperId}
           className="group border-l-2 border-bg-tertiary hover:border-accent-rust pl-6 py-4 transition-colors duration-300"
@@ -105,6 +123,35 @@ export function PublicationList({ publications }: PublicationListProps) {
           )}
         </motion.article>
       ))}
-    </motion.div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Navigation */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-8 pt-6 border-t border-bg-tertiary">
+          <button
+            onClick={handlePrev}
+            disabled={currentPage === 0}
+            className="w-10 h-10 flex items-center justify-center border border-accent-rust text-accent-rust hover:bg-accent-rust hover:text-text-primary transition-colors duration-300 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-accent-rust"
+            aria-label="Previous publications"
+          >
+            <span className="text-lg leading-none">&larr;</span>
+          </button>
+
+          <span className="font-mono text-sm text-text-secondary">
+            {startNum}-{endNum} of {publications.length}
+          </span>
+
+          <button
+            onClick={handleNext}
+            disabled={currentPage === totalPages - 1}
+            className="w-10 h-10 flex items-center justify-center border border-accent-rust text-accent-rust hover:bg-accent-rust hover:text-text-primary transition-colors duration-300 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-accent-rust"
+            aria-label="Next publications"
+          >
+            <span className="text-lg leading-none">&rarr;</span>
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
