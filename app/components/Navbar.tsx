@@ -78,7 +78,7 @@ export default function Navbar() {
               <div className="w-3 h-3 bg-accent-gold" />
               <div className="w-3 h-3 bg-accent-olive" />
             </div>
-            <span className="font-mono text-lg tracking-widest text-text-primary group-hover:text-accent-gold transition-colors">
+            <span className="font-mono text-lg tracking-widest text-text-primary group-hover:text-accent-gold-dark transition-colors">
               AC
             </span>
           </motion.a>
@@ -89,7 +89,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="font-mono text-base tracking-wider uppercase text-text-secondary hover:text-accent-gold transition-colors duration-200"
+                className="font-mono text-base tracking-wider uppercase text-text-secondary hover:text-accent-gold-dark transition-colors duration-200"
               >
                 {link.label}
               </a>
@@ -104,7 +104,7 @@ export default function Navbar() {
                 href={link.href}
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="px-4 py-2 border border-text-secondary text-text-secondary font-mono text-base tracking-wider uppercase hover:border-accent-rust hover:text-accent-rust transition-colors duration-200"
+                className="px-4 py-2 border border-text-secondary text-text-secondary font-mono text-base tracking-wider uppercase hover:border-accent-olive hover:text-accent-olive transition-colors duration-200"
               >
                 {link.label}
               </a>
@@ -178,7 +178,7 @@ export default function Navbar() {
                     <motion.a
                       key={link.href}
                       href={link.href}
-                      className="block font-mono text-sm tracking-wider uppercase text-text-secondary hover:text-accent-gold transition-colors"
+                      className="block font-mono text-sm tracking-wider uppercase text-text-secondary hover:text-accent-gold-dark transition-colors"
                       onClick={() => setIsOpen(false)}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -201,7 +201,7 @@ export default function Navbar() {
                       href={link.href}
                       target={link.href.startsWith("http") ? "_blank" : undefined}
                       rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="block px-4 py-3 border border-text-secondary text-text-secondary font-mono text-xs tracking-wider uppercase hover:border-accent-gold hover:text-accent-gold transition-colors text-center"
+                      className="block px-4 py-3 border border-text-secondary text-text-secondary font-mono text-xs tracking-wider uppercase hover:border-accent-gold-dark hover:text-accent-gold-dark transition-colors text-center"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}

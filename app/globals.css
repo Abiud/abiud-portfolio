@@ -5,15 +5,18 @@ html {
 }
 
 :root {
-  /* Muted Industrial Constructivist Palette */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #2d2d2d;
-  --bg-tertiary: #3a3a3a;
-  --text-primary: #f5f0e8;
-  --text-secondary: #a8a8a8;
-  --accent-rust: #b54a32;
-  --accent-olive: #6b7c5c;
-  --accent-gold: #c9a959;
+  /* Light Theme - Neutral with Palm Leaf, Baltic Blue & Honey Bronze Accents */
+  --bg-primary: #f3f6ef;      /* Palm Leaf 50 - main background */
+  --bg-secondary: #e7edde;    /* Palm Leaf 100 - section backgrounds */
+  --bg-tertiary: #ffffff;     /* White for cards/containers */
+
+  --text-primary: #13170d;    /* Palm Leaf 950 - main text */
+  --text-secondary: #516336;  /* Palm Leaf 700 - secondary text */
+
+  --accent-rust: #87a45b;     /* Palm Leaf 500 - PRIMARY accent */
+  --accent-gold: #4587ba;     /* Baltic Blue 500 - SECONDARY (CTAs) */
+  --accent-gold-dark: #295170; /* Baltic Blue 700 - for text on light bg */
+  --accent-olive: #f5a30a;    /* Honey Bronze 500 - TERTIARY (hovers) */
 
   --background: var(--bg-primary);
   --foreground: var(--text-primary);
@@ -30,6 +33,7 @@ html {
   --color-accent-rust: var(--accent-rust);
   --color-accent-olive: var(--accent-olive);
   --color-accent-gold: var(--accent-gold);
+  --color-accent-gold-dark: var(--accent-gold-dark);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -44,16 +48,16 @@ body {
 .diagonal-line {
   position: absolute;
   height: 2px;
-  background: var(--accent-rust);
+  background: var(--accent-gold);
   transform-origin: left center;
 }
 
 .geometric-block {
   position: absolute;
-  background: var(--accent-rust);
+  background: var(--accent-gold);
 }
 
-/* Custom scrollbar for Constructivist feel */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -63,9 +67,9 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-rust);
+  background: var(--accent-gold);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-gold);
+  background: var(--accent-olive);
 }
