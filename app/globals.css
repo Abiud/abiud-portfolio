@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   /* Muted Industrial Constructivist Palette */
   --bg-primary: #1a1a1a;

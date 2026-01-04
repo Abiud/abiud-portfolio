@@ -106,7 +106,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 py-20">
+      <section className="relative min-h-screen flex items-center justify-center px-6 py-20 pt-28">
         {/* Geometric decorations */}
         <motion.div
           className="absolute top-20 left-10 w-32 h-1 bg-accent-rust"
@@ -159,7 +159,7 @@ export default function Home() {
                 animate={{ opacity: 0.5 }}
                 transition={{ delay: 0.7 }}
               />
-              <div className="relative w-80 h-[414px]">
+              <div className="relative w-80 h-[577px] mb-[-46px]">
                 <Image
                   src="/abiud.png"
                   alt="Abiud Cantu"
@@ -242,7 +242,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-24 px-6 bg-bg-secondary relative">
+      <section id="about" className="py-24 px-6 bg-bg-secondary relative">
         <motion.div
           className="absolute top-0 left-0 w-full h-1 bg-accent-rust"
           initial={{ scaleX: 0 }}
@@ -300,7 +300,7 @@ export default function Home() {
       </section>
 
       {/* Experience Section */}
-      <section className="py-24 px-6 relative">
+      <section id="experience" className="py-24 px-6 relative">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial="hidden"
@@ -336,7 +336,7 @@ export default function Home() {
                 <ul className="space-y-2">
                   {exp.highlights.map((highlight, i) => (
                     <li key={i} className="text-text-secondary flex items-start gap-2">
-                      <span className="text-accent-olive mt-1.5">&#9656;</span>
+                      <span className="text-accent-olive">&#9656;</span>
                       {highlight}
                     </li>
                   ))}
@@ -348,7 +348,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section className="py-24 px-6 bg-bg-secondary relative">
+      <section id="projects" className="py-24 px-6 bg-bg-secondary relative">
         <motion.div
           className="absolute top-0 right-0 w-1/3 h-1 bg-accent-olive"
           initial={{ scaleX: 0 }}
@@ -421,7 +421,7 @@ export default function Home() {
       </section>
 
       {/* Publications Section */}
-      <section className="py-24 px-6 relative overflow-hidden">
+      <section id="publications" className="py-24 px-6 relative overflow-hidden">
         {/* Decorative elements */}
         <motion.div
           className="absolute top-1/2 -left-20 w-40 h-40 border-2 border-accent-rust opacity-20"
@@ -497,7 +497,7 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section className="py-24 px-6 bg-bg-secondary relative">
+      <section id="skills" className="py-24 px-6 bg-bg-secondary relative">
         <motion.div
           className="absolute bottom-0 left-0 w-2/3 h-1 bg-accent-rust"
           initial={{ scaleX: 0 }}
@@ -598,7 +598,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 px-6 relative">
+      <section id="contact" className="py-24 px-6 relative">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial="hidden"
