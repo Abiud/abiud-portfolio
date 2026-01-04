@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion, type Variants } from "motion/react";
+import { useState } from "react";
+import { motion, AnimatePresence, type Variants } from "motion/react";
 
 // Animation variants
 const fadeInUp: Variants = {
@@ -115,19 +116,9 @@ const experiences = [
     highlights: [
       "Multiomics data analysis (RNA-seq, single cell RNA-sequencing, spatial transcriptomics)",
       "Statistical analysis and visualization using R and Python",
-      "Built reproducible pipelines with Docker and Quarto",
+      "Built reproducible pipelines with Docker",
       "Created interactive Shiny web apps for data communication",
       "Developed FileMaker databases with custom UI/UX",
-    ],
-  },
-  {
-    title: "Volunteer Software Developer",
-    company: "Plant it Forward",
-    period: "Mar 2021 – Oct 2021",
-    highlights: [
-      "Led cross-platform app development with Flutter and Firebase",
-      "Integrated authentication and role-based access",
-      "Designed UI/UX for team communication platform",
     ],
   },
   {
@@ -140,6 +131,10 @@ const experiences = [
       "Automated NGS analysis with Bash scripts",
       "Built shared Unix environment saving costs for BCM labs",
     ],
+    images: [
+      { src: "/fishnet_logo.png", alt: "FishNET Logo", clickable: false },
+      { src: "/fishnet.png", alt: "FishNET Application Screenshot" },
+    ],
   },
 ];
 
@@ -150,6 +145,7 @@ const projects = [
     description: "Facebook Messenger chatbot assisting students with class and professor inquiries using Wit.ai for NLP, Express and MongoDB backend.",
     tech: ["Wit.ai", "Express", "MongoDB", "JavaScript"],
     link: null,
+    image: "/seniorPoster.png",
   },
   {
     title: "Lingappan Lab Website",
@@ -157,6 +153,7 @@ const projects = [
     description: "Redesigned laboratory online presence with Next.js, featuring team profiles, project showcases, and interactive R Shiny apps.",
     tech: ["Next.js", "React", "R Shiny"],
     link: "https://www.lingappanlab.com/",
+    image: "/lingappanlab_website.png",
   },
   {
     title: "TravelCost Scout",
@@ -164,6 +161,7 @@ const projects = [
     description: "Web app finding affordable airfare between destinations, displaying results on animated maps with multi-flight savings suggestions.",
     tech: ["HTML", "CSS", "JavaScript"],
     link: null,
+    video: "https://www.youtube.com/embed/YEmyNHrnmeY?si=JuAzjKrokAvhs_0H",
   },
 ];
 
@@ -173,7 +171,51 @@ const skills = {
   beginner: ["Perl", "Dart"],
 };
 
+// Lightbox component for fullscreen image viewing
+const Lightbox = ({
+  src,
+  alt,
+  onClose,
+}: {
+  src: string;
+  alt: string;
+  onClose: () => void;
+}) => (
+  <motion.div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 cursor-pointer p-8"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.3 }}
+    onClick={onClose}
+  >
+    <motion.div
+      className="relative w-full h-full max-w-6xl max-h-[85vh]"
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.8, opacity: 0 }}
+      transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-contain rounded"
+        sizes="(max-width: 1200px) 100vw, 1200px"
+      />
+      <button
+        onClick={onClose}
+        className="absolute -top-10 right-0 text-white font-mono text-sm tracking-wider hover:text-accent-gold transition-colors flex items-center gap-2"
+      >
+        CLOSE <span className="text-xl">&times;</span>
+      </button>
+    </motion.div>
+  </motion.div>
+);
+
 export default function Home() {
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
   return (
     <main className="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
       {/* Hero Section */}
@@ -336,7 +378,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.7 }}
             >
               <a
-                href="mailto:abiudcantu@gmail.com"
+                href="#contact"
                 className="px-6 py-3 bg-accent-gold text-white font-mono text-sm tracking-wider hover:bg-accent-olive transition-colors duration-300"
               >
                 CONTACT ME
@@ -394,13 +436,14 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 gap-8"
+            className="space-y-8"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
           >
-            <motion.div variants={fadeInLeft}>
+            {/* Top row - Text */}
+            <motion.div variants={fadeInUp}>
               <p className="text-text-secondary text-lg leading-relaxed mb-6">
                 Currently working as a Research Technician at the Children&apos;s Hospital of Philadelphia,
                 where I bridge the gap between computational analysis and biological discovery.
@@ -410,18 +453,16 @@ export default function Home() {
                 creating interactive applications that make complex data accessible.
               </p>
             </motion.div>
-            <motion.div variants={fadeInRight} className="space-y-4">
-              <div className="flex items-center gap-4 p-4 bg-bg-tertiary border-l-4 border-accent-rust">
+
+            {/* Bottom row - Education and GPA */}
+            <motion.div variants={fadeInUp} className="grid md:grid-cols-4 gap-4">
+              <div className="md:col-span-3 flex items-center gap-3 py-2 px-4 bg-bg-tertiary border-l-4 border-accent-rust">
                 <span className="text-accent-gold-dark font-mono text-sm">EDUCATION</span>
-                <span className="text-text-primary">M.S. Computer Science, UTRGV</span>
+                <span className="text-text-primary">M.S. Computer Science, University of Texas Rio Grande Valley</span>
               </div>
-              <div className="flex items-center gap-4 p-4 bg-bg-tertiary border-l-4 border-accent-olive">
+              <div className="md:col-span-1 flex items-center gap-3 py-2 px-4 bg-bg-tertiary border-l-4 border-accent-olive">
                 <span className="text-accent-gold-dark font-mono text-sm">GPA</span>
                 <span className="text-text-primary">3.83</span>
-              </div>
-              <div className="flex items-center gap-4 p-4 bg-bg-tertiary border-l-4 border-accent-gold">
-                <span className="text-accent-gold-dark font-mono text-sm">LOCATION</span>
-                <span className="text-text-primary">Philadelphia, PA</span>
               </div>
             </motion.div>
           </motion.div>
@@ -470,6 +511,38 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
+                {exp.images && (
+                  <div className="mt-4 flex flex-wrap gap-4">
+                    {exp.images.map((img, i) =>
+                      img.clickable === false ? (
+                        <Image
+                          key={i}
+                          src={img.src}
+                          alt={img.alt}
+                          width={200}
+                          height={150}
+                          className="rounded border border-bg-tertiary object-contain"
+                        />
+                      ) : (
+                        <motion.button
+                          key={i}
+                          onClick={() => setLightboxImage({ src: img.src, alt: img.alt })}
+                          className="cursor-pointer"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            width={200}
+                            height={150}
+                            className="rounded border border-bg-tertiary object-contain hover:border-accent-gold transition-colors"
+                          />
+                        </motion.button>
+                      )
+                    )}
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>
@@ -522,6 +595,33 @@ export default function Home() {
                 <p className="text-text-secondary text-sm mb-4 leading-relaxed">
                   {project.description}
                 </p>
+                {project.image && (
+                  <motion.button
+                    onClick={() => setLightboxImage({ src: project.image!, alt: project.title })}
+                    className="mb-4 w-full cursor-pointer"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      width={300}
+                      height={200}
+                      className="w-full h-auto rounded border border-bg-tertiary hover:border-accent-gold transition-colors"
+                    />
+                  </motion.button>
+                )}
+                {project.video && (
+                  <div className="mb-4 aspect-video">
+                    <iframe
+                      src={project.video}
+                      title={`${project.title} video`}
+                      className="w-full h-full rounded border border-bg-tertiary"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                )}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
                     <span
@@ -720,7 +820,7 @@ export default function Home() {
           >
             <p className="text-text-secondary">
               <span className="text-accent-gold-dark font-mono">CURRENTLY LEARNING:</span>{" "}
-              Game development using Godot
+              Game development using Unreal Engine
             </p>
           </motion.div>
         </div>
@@ -755,22 +855,6 @@ export default function Home() {
               </p>
 
               <div className="space-y-4">
-                <motion.a
-                  href="mailto:abiudcantu@gmail.com"
-                  className="flex items-center gap-4 p-4 bg-bg-secondary hover:bg-bg-tertiary transition-colors group"
-                  whileHover={{ x: 5 }}
-                >
-                  <div className="w-10 h-10 bg-accent-rust flex items-center justify-center text-text-primary font-mono text-sm">
-                    @
-                  </div>
-                  <div>
-                    <p className="text-text-secondary text-sm font-mono">EMAIL</p>
-                    <p className="text-text-primary group-hover:text-accent-gold-dark transition-colors">
-                      abiudcantu@gmail.com
-                    </p>
-                  </div>
-                </motion.a>
-
                 <motion.a
                   href="https://github.com/Abiud"
                   target="_blank"
@@ -850,6 +934,17 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightboxImage && (
+          <Lightbox
+            src={lightboxImage.src}
+            alt={lightboxImage.alt}
+            onClose={() => setLightboxImage(null)}
+          />
+        )}
+      </AnimatePresence>
     </main>
   );
 }
