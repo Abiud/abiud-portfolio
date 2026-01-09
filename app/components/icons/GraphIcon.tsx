@@ -1,0 +1,20 @@
+export function GraphIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 60 60"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g>
+        <rect x="32" y="7" fill="#4587ba" width="10" height="45" />
+        <rect x="17" y="38" fill="#f5a30a" width="10" height="14" />
+        <rect x="2" y="29" fill="#87a45b" width="10" height="23" />
+        <rect x="47" y="15" fill="#f15d0e" width="10" height="37" opacity="0.6" />
+        <path
+          fill="#13170d"
+          d="M59,53H1c-0.552,0-1-0.447-1-1s0.448-1,1-1h58c0.552,0,1,0.447,1,1S59.552,53,59,53z"
+        />
+      </g>
+    </svg>
+  );
+}

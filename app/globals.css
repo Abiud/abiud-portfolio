@@ -1,75 +1,122 @@
 @import "tailwindcss";
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 :root {
-  /* Light Theme - Neutral with Palm Leaf, Baltic Blue & Honey Bronze Accents */
-  --bg-primary: #f3f6ef;      /* Palm Leaf 50 - main background */
-  --bg-secondary: #e7edde;    /* Palm Leaf 100 - section backgrounds */
-  --bg-tertiary: #ffffff;     /* White for cards/containers */
+    /* Light Theme - Neutral with Palm Leaf, Baltic Blue & Honey Bronze Accents */
+    --bg-primary: #f3f6ef; /* Palm Leaf 50 - main background */
+    --bg-secondary: #e7edde; /* Palm Leaf 100 - section backgrounds */
+    --bg-tertiary: #ffffff; /* White for cards/containers */
 
-  --text-primary: #13170d;    /* Palm Leaf 950 - main text */
-  --text-secondary: #516336;  /* Palm Leaf 700 - secondary text */
+    --text-primary: #13170d; /* Palm Leaf 950 - main text */
+    --text-secondary: #516336; /* Palm Leaf 700 - secondary text */
 
-  --accent-rust: #87a45b;     /* Palm Leaf 500 - PRIMARY accent */
-  --accent-gold: #4587ba;     /* Baltic Blue 500 - SECONDARY (CTAs) */
-  --accent-gold-dark: #295170; /* Baltic Blue 700 - for text on light bg */
-  --accent-olive: #f5a30a;    /* Honey Bronze 500 - TERTIARY (hovers) */
+    --accent-rust: #87a45b; /* Palm Leaf 500 - PRIMARY accent */
+    --accent-blue: #4587ba; /* Baltic Blue 500 - SECONDARY (CTAs) */
+    --accent-blue-dark: #295170; /* Baltic Blue 700 - for text on light bg */
+    --accent-gold: #f5a30a; /* Honey Bronze 500 - TERTIARY (hovers) */
 
-  --background: var(--bg-primary);
-  --foreground: var(--text-primary);
+    --background: var(--bg-primary);
+    --foreground: var(--text-primary);
+}
+
+/* Dark Theme - Applied via .dark class on html element */
+.dark {
+    --bg-primary: #1a1d16; /* Dark background */
+    --bg-secondary: #252a1e; /* Dark section backgrounds */
+    --bg-tertiary: #2d3326; /* Dark cards/containers */
+
+    --text-primary: #f3f6ef; /* Light text */
+    --text-secondary: #a8c07a; /* Muted light text */
+
+    /* Accent colors adjusted for dark mode visibility */
+    --accent-rust: #9ab86d; /* Lighter Palm Leaf for visibility */
+    --accent-blue: #5a9fd4; /* Lighter Baltic Blue */
+    --accent-blue-dark: #7ab8e8; /* Even lighter for dark bg */
+    --accent-gold: #ffb82e; /* Brighter Honey Bronze */
+
+    --background: var(--bg-primary);
+    --foreground: var(--text-primary);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-bg-primary: var(--bg-primary);
-  --color-bg-secondary: var(--bg-secondary);
-  --color-bg-tertiary: var(--bg-tertiary);
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
-  --color-accent-rust: var(--accent-rust);
-  --color-accent-olive: var(--accent-olive);
-  --color-accent-gold: var(--accent-gold);
-  --color-accent-gold-dark: var(--accent-gold-dark);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-bg-primary: var(--bg-primary);
+    --color-bg-secondary: var(--bg-secondary);
+    --color-bg-tertiary: var(--bg-tertiary);
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-accent-rust: var(--accent-rust);
+    --color-accent-blue: var(--accent-blue);
+    --color-accent-blue-dark: var(--accent-blue-dark);
+    --color-accent-gold: var(--accent-gold);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Focus states for accessibility */
+:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* Remove default outline and apply custom focus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
 }
 
 /* Constructivist geometric utilities */
 .diagonal-line {
-  position: absolute;
-  height: 2px;
-  background: var(--accent-gold);
-  transform-origin: left center;
+    position: absolute;
+    height: 2px;
+    background: var(--accent-blue);
+    transform-origin: left center;
 }
 
 .geometric-block {
-  position: absolute;
-  background: var(--accent-gold);
+    position: absolute;
+    background: var(--accent-blue);
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+    background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-gold);
+    background: var(--accent-blue);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-olive);
+    background: var(--accent-gold);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

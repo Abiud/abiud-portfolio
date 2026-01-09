@@ -18,20 +18,37 @@ bun run lint     # Run ESLint
 - **Framework**: Next.js 16.1.1 with App Router
 - **Language**: TypeScript (strict mode enabled)
 - **Styling**: Tailwind CSS v4 (via @tailwindcss/postcss plugin)
+- **Animations**: Motion (Framer Motion)
 - **Runtime**: React 19.2.3
 
 ## Architecture
 
-This is a Next.js App Router project:
+### Data Flow
+- `app/page.tsx` - Server Component that fetches publications from Semantic Scholar API at build time
+- `lib/semantic-scholar.ts` - API client for fetching author publications (static at build time via `revalidate: false`)
+- `app/components/HomePage.tsx` - Client Component receiving publications as props
 
-- `app/` - Next.js App Router directory (layouts, pages, components)
-- `app/layout.tsx` - Root layout with Geist font configuration
-- `app/globals.css` - Tailwind CSS with theme variables
+### Directory Structure
+- `app/` - Next.js App Router (layouts, pages, components)
+- `app/components/sections/` - Page sections (Hero, About, Experience, Projects, Publications, Skills, Contact, Footer)
+- `app/components/ui/` - Reusable UI components (Lightbox)
+- `app/components/icons/` - Custom SVG icon components
+- `lib/constants/` - Static data (experiences, skills, navigation, animations)
+- `lib/hooks/` - Custom React hooks (useScrolled, useBodyScrollLock, useReducedMotion)
+- `lib/types/` - TypeScript type definitions
 - `public/` - Static assets
+
+### Theming
+- Theme toggle with localStorage persistence
+- `ThemeProvider` context for theme state management
+- CSS variables in `globals.css` define light/dark color schemes
+- Theme applied via `.dark` class on `<html>` element
+- Inline script in layout prevents flash of wrong theme
 
 ## Key Conventions
 
 - Server Components by default; add `'use client'` directive only when needed
 - Path alias `@/*` maps to project root
-- Dark mode via `prefers-color-scheme` media query and CSS variables
 - Font variables: `--font-geist-sans`, `--font-geist-mono`
+- CSS custom properties for theming: `--bg-primary`, `--text-primary`, `--accent-blue`, etc.
+- Respects `prefers-reduced-motion` media query

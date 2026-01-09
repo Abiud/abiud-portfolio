@@ -1,23 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion, type Variants } from "motion/react";
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
-  },
-};
+import { motion } from "motion/react";
+import { fadeInUp, staggerContainer } from "@/lib/constants/animations";
 
 export default function NotFound() {
   return (
@@ -26,7 +11,7 @@ export default function NotFound() {
       <div className="absolute top-20 left-10 w-32 h-0.5 bg-accent-gold transform -rotate-45 opacity-40" />
       <div className="absolute top-32 left-20 w-20 h-0.5 bg-accent-rust transform -rotate-45 opacity-60" />
       <div className="absolute bottom-32 right-10 w-40 h-0.5 bg-accent-gold transform rotate-45 opacity-40" />
-      <div className="absolute bottom-20 right-24 w-24 h-0.5 bg-accent-olive transform rotate-45 opacity-50" />
+      <div className="absolute bottom-20 right-24 w-24 h-0.5 bg-accent-gold transform rotate-45 opacity-50" />
 
       {/* Small geometric blocks */}
       <div className="absolute top-40 right-20 w-3 h-3 bg-accent-rust opacity-30" />
@@ -43,7 +28,7 @@ export default function NotFound() {
           className="font-mono text-sm uppercase tracking-widest text-text-secondary mb-6"
           variants={fadeInUp}
         >
-          // ERROR_404
+          {"// ERROR_404"}
         </motion.p>
 
         {/* Large 404 */}
@@ -76,7 +61,7 @@ export default function NotFound() {
         <motion.div variants={fadeInUp}>
           <Link
             href="/"
-            className="inline-block px-8 py-3 bg-accent-gold text-white font-mono uppercase tracking-wider text-sm hover:bg-accent-gold-dark transition-colors duration-300"
+            className="inline-block px-8 py-3 bg-accent-gold text-white font-mono uppercase tracking-wider text-sm hover:bg-accent-blue-dark transition-colors duration-300"
           >
             Return Home
           </Link>
@@ -87,7 +72,7 @@ export default function NotFound() {
           className="font-mono text-xs text-text-secondary mt-8 opacity-60"
           variants={fadeInUp}
         >
-          // Process exited with code 404
+          {"// Process exited with code 404"}
         </motion.p>
       </motion.div>
     </main>
